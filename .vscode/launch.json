@@ -1,0 +1,33 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug Run",
+      "program": "${workspaceFolder:whereistimo}/.build/debug/Run",
+      "args": [],
+      "cwd": "${workspaceFolder:whereistimo}",
+      "preLaunchTask": "swift: Build Debug Run"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Release Run",
+      "program": "${workspaceFolder:whereistimo}/.build/release/Run",
+      "args": [],
+      "cwd": "${workspaceFolder:whereistimo}",
+      "preLaunchTask": "swift: Build Release Run"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Test whereistimo",
+      "program": "/Applications/Xcode-13.2.1.app/Contents/Developer/usr/bin/xctest",
+      "args": [
+        ".build/debug/whereistimoPackageTests.xctest"
+      ],
+      "cwd": "${workspaceFolder:whereistimo}",
+      "preLaunchTask": "swift: Build All"
+    }
+  ]
+}
