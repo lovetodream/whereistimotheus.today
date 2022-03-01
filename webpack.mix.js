@@ -1,8 +1,10 @@
-let mix = require("laravel-mix");
+const mix = require("laravel-mix");
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 mix.webpackConfig({
         plugins: [new LiveReloadPlugin()]
     })
+    .ts("Resources/Typescript/app.ts", "public/js")
     .sass("Resources/Styles/app.scss", "public/css")
     .options({
         processCssUrls: false,
