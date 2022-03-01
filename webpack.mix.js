@@ -5,4 +5,8 @@ mix.js("Resources/Javascript/app.js", "public/js")
     .options({
         processCssUrls: false,
         postCss: [require("tailwindcss")]
+    })
+    .browserSync({
+        proxy: "http://localhost:8080", 
+        injectChanges: false
     });
