@@ -12,3 +12,23 @@ func routes(_ app: Application) throws {
 
     try app.register(collection: TodoController())
 }
+
+// MARK: - The following needs refactoring
+
+struct Data: Content {
+    var location: Location
+    var mood: Mood
+}
+
+struct Location: Content {
+    var name: String
+    var latitude: Double
+    var longitude: Double
+    var isExact: Bool = true
+}
+
+struct Mood: Content {
+    var name: String
+    var emoji: String
+    var updatedAt: Date = .now
+}
