@@ -3,8 +3,19 @@ import SwiftJWT
 import Vapor
 
 func routes(_ app: Application) throws {
-    app.get { req in
-        return req.view.render("index", ["title": "Hello Vapor!"])
+    app.get { req -> View in
+        let data = getData()
+        return try await req.view.render("index", [
+            "location": "\(data.location.isExact ? "in" : "near") \(data.location.name)",
+            "mood_label": data.mood.name,
+            "mood_emoji": data.mood.emoji,
+            "mood_updated_at": data.mood.updatedAt.description,
+            "development": "\(app.environment == .development)",
+        ])
+    }
+
+    app.get("data") { _ -> Data in
+        getData()
     }
 
     app.get("token") { _ -> String in
@@ -15,6 +26,13 @@ func routes(_ app: Application) throws {
 }
 
 // MARK: - The following needs refactoring
+
+func getData() -> Data {
+    // TODO: This will dynamic/automated in the future
+    let location = Location(name: "Ingolstadt", latitude: 48.76508, longitude: 11.42372, isExact: false)
+    let mood = Mood(name: "happy", emoji: "😃")
+    return Data(location: location, mood: mood)
+}
 
 func getToken() throws -> String {
     let header = Header(typ: "JWT", kid: Environment.get("MAPKIT_KEYID"))

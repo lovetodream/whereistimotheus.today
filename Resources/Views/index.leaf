@@ -1,14 +1,34 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8" />
 
-  <title>Where is Timo</title>
+    <title>Where is Timo</title>
 
-  <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/app.css" />
+
+    <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.js" defer></script>
+    <script src="/js/app.js" defer></script>
 </head>
 
-<body>
-  <h1>#(title)</h1>
+<body class="h-screen flex">
+    <div id="map" class="w-screen h-screen z-0 absolute"></div>
+    <div class="bg-white bg-opacity-30 z-10 relative max-w-3xl max-h-96 w-full h-full m-auto rounded-xl backdrop-blur-xl firefox:bg-opacity-90 p-12 text-center">
+        <h1 class="leading-loose tracking-wide text-2xl">
+            Timo is currently
+            <span class="bg-yellow-100/60 font-semibold">#(location)</span>
+        </h1>
+        <hr />
+        <h2 class="leading-loose tracking-wide text-xl">
+            Timo feels
+            <span class="bg-yellow-100/60 font-semibold">#(mood_label)</span>
+                #(mood_emoji)
+            <span class="text-sm text-gray-500" id="mood-updated-at">(#(mood_updated_at))</span>
+        </h2>
+    </div>
+
+    #if(development=="true"):
+    <script src="http://localhost:35729/livereload.js"></script>
+    #endif
 </body>
 </html>

@@ -1,5 +1,11 @@
+import { DateTime } from "luxon";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const mapkit: any;
+
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const moodUpdatedAtElement: HTMLElement = document.getElementById("mood-updated-at")!;
+let moodUpdatedAtValue: DateTime | null = null;
 
 mapkit.init({
     authorizationCallback: (done: (arg0: string) => void) => {
@@ -16,6 +22,8 @@ fetch("/data")
     .then(res => res.json())
     .then(data => {
         console.log(data);
+        moodUpdatedAtValue = DateTime.fromISO(data.mood.updatedAt);
+        moodUpdatedAtElement.innerText = moodUpdatedAtValue.toRelative({ unit: "minutes" }) ?? moodUpdatedAtValue.toLocaleString();
 
         const center = new mapkit.Coordinate(data.location.latitude, data.location.longitude),
             span = new mapkit.CoordinateSpan(0.25, 0.25),
@@ -32,3 +40,7 @@ fetch("/data")
 
     });
   
+setInterval(() => {
+    if (moodUpdatedAtValue)
+        moodUpdatedAtElement.innerText = moodUpdatedAtValue.toRelative({ unit: "minutes" }) ?? moodUpdatedAtValue.toLocaleString();
+}, 1000 * 60);
