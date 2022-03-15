@@ -22,7 +22,7 @@
       "type": "lldb",
       "request": "launch",
       "name": "Test whereistimo",
-      "program": "/Applications/Xcode-13.2.1.app/Contents/Developer/usr/bin/xctest",
+      "program": "/Applications/Xcode-13.3.0.app/Contents/Developer/usr/bin/xctest",
       "args": [
         ".build/debug/whereistimoPackageTests.xctest"
       ],
