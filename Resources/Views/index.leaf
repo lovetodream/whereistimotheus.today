@@ -11,20 +11,42 @@
     <script src="/js/app.js" defer></script>
 </head>
 
-<body class="h-screen flex">
-    <div id="map" class="w-screen h-screen z-0 absolute"></div>
-    <div class="bg-white bg-opacity-30 z-10 relative max-w-3xl max-h-96 w-full h-full m-auto rounded-xl backdrop-blur-xl firefox:bg-opacity-90 p-12 text-center">
-        <h1 class="leading-loose tracking-wide text-2xl">
-            Timo is currently
-            <span class="bg-yellow-100/60 font-semibold">#(location)</span>
-        </h1>
-        <hr />
-        <h2 class="leading-loose tracking-wide text-xl">
-            Timo feels
-            <span class="bg-yellow-100/60 font-semibold">#(mood_label)</span>
-                #(mood_emoji)
-            <span class="text-sm text-gray-500" id="mood-updated-at">(#(mood_updated_at))</span>
-        </h2>
+<body class="min-h-screen w-screen flex flex-col md:flex-row">
+    <div id="map" class="md:w-1/3 md:h-screen h-64 w-full"></div>
+    <div class="bg-white p-12 text-center flex justify-between flex-col flex-1">
+        <div class="space-y-4">
+            <div class="space-y-2">
+                <h1 class="leading-loose tracking-wide text-2xl">
+                    Timo is currently
+                    <span class="bg-yellow-100/60 font-semibold">#(location)</span>
+                </h1>
+                <hr />
+                <h2 class="leading-loose tracking-wide text-xl">
+                    Timo feels
+                    <span class="bg-yellow-100/60 font-semibold">#(mood_label)</span>
+                    #(mood_emoji)
+                    <span class="text-sm text-gray-500" id="mood-updated-at">(#(mood_updated_at))</span>
+                </h2>
+                <hr />
+                <h2 class="leading-loose tracking-wide text-xl">
+                    Air Quality in the office is
+                    <span class="bg-yellow-100/60 font-semibold">#(air_quality)</span>
+                    #(air_quality_status_emoji)
+                    <span class="text-sm text-gray-500" id="air-quality-updated-at">(#(air_quality_updated_at))</span>
+                </h2>
+            </div>
+        </div>
+        <footer class="backdrop-blur space-y-2">
+            <p>
+                Built with ❤️ and <a href="vapor.codes" target="_blank" class="text-blue-500">Vapor</a>
+            </p>
+            <p class="font-light text-sm">
+                &copy; 
+                <!-- current year -->
+                <script>document.write(new Date().getFullYear())</script>
+                Timo
+            </p>
+        </footer>
     </div>
 
     #if(development=="true"):
