@@ -43,12 +43,12 @@ func getData(req: Request) async throws -> Data {
 
 func getToken() throws -> String {
     let header = Header(typ: "JWT", kid: Environment.get("MAPKIT_KEYID"))
-    let claims = ClaimsStandardJWT(iss: Environment.get("MAPKIT_TEAMID"), exp: Date(timeIntervalSinceNow: 86400), iat: .now)
+    let claims = ClaimsStandardJWT(iss: Environment.get("MAPKIT_TEAMID"), exp: Date(timeIntervalSinceNow: 86400), iat: Date())
     var jwt = JWT(header: header, claims: claims)
 
     let p8 = Environment.get("MAPKIT_KEY")!.data(using: .utf8)!
 
-    let token = try jwt.sign(using: .es256(privateKey: p8))
+    let token = try jwt.sign(using: JWTSigner.es256(privateKey: p8))
 
     return token
 }
@@ -69,14 +69,14 @@ struct Location: Content {
 struct Mood: Content {
     var name: String
     var emoji: String
-    var updatedAt: Date = .now
+    var updatedAt = Date()
 }
 
 struct AirQuality: Content {
     var index: Int
     var label: AirQualityLabel
     var status: AirQualityStatus
-    var updatedAt: Date = .now
+    var updatedAt: Date = Date()
 
     init(index: Int, timestamp: Date) {
         self.index = index
