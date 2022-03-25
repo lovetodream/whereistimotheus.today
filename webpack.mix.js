@@ -5,8 +5,8 @@ const LiveReloadPlugin = require("webpack-livereload-plugin");
 mix.webpackConfig({
     plugins: [new LiveReloadPlugin()]
 })
-    .ts("Resources/Typescript/app.ts", "public/js")
-    .sass("Resources/Styles/app.scss", "public/css")
+    .ts("Resources/Typescript/app.ts", "Public/js")
+    .sass("Resources/Styles/app.scss", "Public/css")
     .options({
         processCssUrls: false,
         postCss: [require("tailwindcss")]
