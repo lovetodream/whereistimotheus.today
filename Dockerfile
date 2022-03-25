@@ -10,6 +10,8 @@ RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get install openssl libssl-dev -y \
     && rm -rf /var/lib/apt/lists/*
 
+RUN ls -lR
+
 # Set up a build area
 WORKDIR /build
 
@@ -37,6 +39,8 @@ RUN cp "$(swift build --package-path /build -c release --show-bin-path)/Run" ./
 RUN [ -d /build/Public ] && { mv /build/Public ./Public && chmod -R a-w ./Public; } || true
 RUN [ -d /build/Resources ] && { mv /build/Resources ./Resources && chmod -R a-w ./Resources; } || true
 
+RUN ls -lR
+
 # ================================
 # Run image
 # ================================
@@ -54,6 +58,8 @@ WORKDIR /app
 
 # Copy built executable and any staged resources from builder
 COPY --from=build --chown=vapor:vapor /staging /app
+
+RUN ls -lR
 
 # Ensure all further commands run as the vapor user
 USER vapor:vapor
